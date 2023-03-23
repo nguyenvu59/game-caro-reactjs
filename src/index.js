@@ -16,8 +16,8 @@ import './index.css';
 //   }
 // }
 
-const numbers = [1, 2, 3];
-const doubled = numbers.map(x => x * 2); // [2, 4, 6]
+// const numbers = [1, 2, 3];
+// const doubled = numbers.map(x => x * 2); // [2, 4, 6]
 
 function Square(props) {
   return (
@@ -55,21 +55,6 @@ class Board extends React.Component {
   //     xIsNext: true,
   //   };
   // }
-
-  handleClick(i) {
-    const history = this.state.history.slice(0, this.state.stepNumber + 1);
-    const current = history[history.length - 1];
-    const squares = current.squares.slice();
-    if (calculateWinner(squares) || squares[i]) {
-      return;
-    }
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
-    this.setState({
-      history: history.concat([{ squares: squares, }]),
-      stepNumber: history.length,
-      xIsNext: !this.state.xIsNext,
-    });
-  }
 
   renderSquare(i) {
     return (
@@ -115,7 +100,18 @@ class Game extends React.Component {
   }
 
   handleClick(i) {
-    // this method has not changed
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    const current = history[history.length - 1];
+    const squares = current.squares.slice();
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    this.setState({
+      history: history.concat([{ squares: squares, }]),
+      stepNumber: history.length,
+      xIsNext: !this.state.xIsNext,
+    });
   }
 
   jumpTo(step) {
